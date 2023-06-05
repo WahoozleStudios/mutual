@@ -1,71 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Loading Screen</title>
-  <style>
-    /* Styles for the loading screen */
-    body {
-      background-color: #222;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    
-    .loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #222;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    
-    .loading h1 {
-      font-size: 24px;
-      margin-bottom: 16px;
-    }
-    
-    .loading .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #fff;
-      border-top-color: #888;
-      border-radius: 50%;
-      animation: spin 1s infinite linear;
-    }
-    
-    /* Animation for the loading spinner */
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
-  <script>
-    // Check if the device is a mobile device
-    function isMobileDevice() {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    }
-    
-    // Redirect to the appropriate HTML file after a delay
-    setTimeout(function() {
-      if (isMobileDevice()) {
-        window.location.href = 'mobile.html';
-      } else {
-        window.location.href = 'desktop.html';
-      }
-    }, 3000); // Delay of 3 seconds before redirecting
-  </script>
+    <title>Device Detection</title>
+    <script>
+        function detectDevice() {
+            // Check if the screen width is less than or equal to 768 pixels (typical tablet width)
+            if (window.innerWidth <= 768) {
+                window.location.href = "mobile/mobile.html"; // Redirect to mobile.html
+            } else {
+                window.location.href = "other/desktop.html"; // Redirect to desktop.html
+            }
+        }
+    </script>
 </head>
-<body>
-  <div class="loading">
+<body onload="detectDevice()">
     <h1>Loading...</h1>
-    <div class="spinner"></div>
-  </div>
 </body>
 </html>
