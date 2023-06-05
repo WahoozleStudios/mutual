@@ -22,6 +22,9 @@
         }
     </style>
     <script>
+        document.getElementById("launchButton").addEventListener("click", function() {
+            window.location.href = "loginpage.html";
+        });
         window.addEventListener('DOMContentLoaded', () => {
             const canvas = document.createElement('canvas');
             document.body.appendChild(canvas);
@@ -110,5 +113,6 @@
 <body>
     <h1 align="center" id="mutualTitle">MUTUAL</h1>
     <h4 align="center" id="titleUnder">By Wahoozle Studios | CEO Zac Moon</h4>
+    <a href="#" class="button">Click Me</a>
 </body>
 </html>
