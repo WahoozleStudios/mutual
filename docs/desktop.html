@@ -49,19 +49,20 @@
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const canvas = document.createElement("canvas");
-            document.body.appendChild(canvas);
+        let canvas;
+        let ctx;
+        let width;
+        let height;
+        let particles = [];
+        const particleCount = 100;
 
-            const ctx = canvas.getContext("2d");
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            width = canvas.width;
+            height = canvas.height;
+            particles = [];
 
-            // Generate random particles
-            const particles = [];
-            const particleCount = 100;
             for (let i = 0; i < particleCount; i++) {
                 const x = Math.random() * width;
                 const y = Math.random() * height;
@@ -69,38 +70,40 @@
                 const color = "#fff";
                 particles.push({ x, y, radius, color });
             }
+        }
 
-            function drawParticles() {
-                particles.forEach(particle => {
-                    ctx.beginPath();
-                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = particle.color;
-                    ctx.fill();
-                });
-            }
-
-            function updateParticles() {
-                particles.forEach(particle => {
-                    particle.x += Math.random() - 0.5;
-                    particle.y += Math.random() - 0.5;
-                });
-            }
-
-            function animate() {
-                requestAnimationFrame(animate);
-                ctx.clearRect(0, 0, width, height);
-                drawParticles();
-                updateParticles();
-            }
-
-            animate();
-
-            // Redraw the background when the window is resized
-            window.addEventListener("resize", () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+        function drawParticles() {
+            particles.forEach(particle => {
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
             });
+        }
+
+        function updateParticles() {
+            particles.forEach(particle => {
+                particle.x += Math.random() - 0.5;
+                particle.y += Math.random() - 0.5;
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, width, height);
+            drawParticles();
+            updateParticles();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+            ctx = canvas.getContext("2d");
+            resizeCanvas();
+            animate();
         });
+
+        window.addEventListener("resize", resizeCanvas);
     </script>
 </head>
 <body>
@@ -111,4 +114,5 @@
         <button>SIGN UP</button>
     </div>
 </body>
-</html>
+</html
+
