@@ -4,16 +4,71 @@
     <title>Mutual | Wahoozle Studios</title>
     <style>
         #mutualTitle {
-            font-size:50px;
+            font-size: 50px;
         }
         body {
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-family: 'RobotoMono', sans-serif;
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
         }
-        @font-face {
-            font-family: 'CustomFont';
-            src: url('path/to/fontfile.ttf') format('truetype'); /* Replace 'path/to/fontfile.ttf' with the actual path to your font file */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Place the canvas behind other elements */
         }
     </style>
+    <script>
+        window.addEventListener('load', () => {
+            const canvas = document.createElement('canvas');
+            document.body.appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            function drawBackground() {
+                ctx.clearRect(0, 0, width, height);
+
+                // Draw background circles
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                for (let i = 0; i < 50; i++) {
+                    const radius = Math.random() * 100 + 50;
+                    const x = Math.random() * width;
+                    const y = Math.random() * height;
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                    ctx.stroke();
+                }
+
+                // Draw lines connecting circles
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                for (let i = 0; i < 100; i++) {
+                    const x1 = Math.random() * width;
+                    const y1 = Math.random() * height;
+                    const x2 = Math.random() * width;
+                    const y2 = Math.random() * height;
+
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+                }
+            }
+
+            drawBackground();
+
+            // Redraw the background when the window is resized
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                drawBackground();
+            });
+        });
+    </script>
 </head>
 <body>
     <h1 align="center" id="mutualTitle">MUTUAL</h1>
