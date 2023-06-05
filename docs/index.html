@@ -10,6 +10,7 @@
             font-family: 'RobotoMono', sans-serif;
             margin: 0;
             overflow: hidden;
+            background-color: #000;
         }
         canvas {
             position: fixed;
@@ -19,91 +20,58 @@
         }
         #titleUnder {
             font-size: 25px;
+            color: #fff;
         }
     </style>
     <script>
-        document.getElementById("launchButton").addEventListener("click", function() {
-            window.location.href = "loginpage.html";
-        });
-        window.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.createElement('canvas');
+        document.addEventListener("DOMContentLoaded", () => {
+            const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
 
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext("2d");
             const width = window.innerWidth;
             const height = window.innerHeight;
             canvas.width = width;
             canvas.height = height;
 
-            // Particle class
-            class Particle {
-                constructor(x, y, radius, color, velocity) {
-                    this.x = x;
-                    this.y = y;
-                    this.radius = radius;
-                    this.color = color;
-                    this.velocity = velocity;
-                    this.opacity = 1;
-                }
-
-                draw() {
-                    ctx.save();
-                    ctx.globalAlpha = this.opacity;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-                    ctx.fillStyle = this.color;
-                    ctx.fill();
-                    ctx.restore();
-                }
-
-                update() {
-                    this.draw();
-
-                    // Move particle
-                    this.x += this.velocity.x;
-                    this.y += this.velocity.y;
-
-                    // Reduce opacity over time
-                    this.opacity -= 0.01;
-
-                    // Remove particle when opacity is too low
-                    if (this.opacity <= 0) {
-                        particles.splice(particles.indexOf(this), 1);
-                    }
-                }
-            }
-
             // Generate random particles
             const particles = [];
-            function createParticles() {
+            const particleCount = 100;
+            for (let i = 0; i < particleCount; i++) {
                 const x = Math.random() * width;
                 const y = Math.random() * height;
-                const radius = Math.random() * 10 + 1;
-                const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 1)`;
-                const velocity = {
-                    x: (Math.random() - 0.5) * 5,
-                    y: (Math.random() - 0.5) * 5
-                };
-                particles.push(new Particle(x, y, radius, color, velocity));
+                const radius = Math.random() * 3 + 1;
+                const color = "#fff";
+                particles.push({ x, y, radius, color });
+            }
+
+            function drawParticles() {
+                particles.forEach(particle => {
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = particle.color;
+                    ctx.fill();
+                });
+            }
+
+            function updateParticles() {
+                particles.forEach(particle => {
+                    particle.x += Math.random() - 0.5;
+                    particle.y += Math.random() - 0.5;
+                });
             }
 
             function animate() {
                 requestAnimationFrame(animate);
                 ctx.clearRect(0, 0, width, height);
-
-                particles.forEach(particle => {
-                    particle.update();
-                });
-
-                if (particles.length < 100) {
-                    createParticles();
-                }
+                drawParticles();
+                updateParticles();
             }
 
             animate();
 
             // Redraw the background when the window is resized
-            window.addEventListener('resize', () => {
+            window.addEventListener("resize", () => {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             });
@@ -113,6 +81,6 @@
 <body>
     <h1 align="center" id="mutualTitle">MUTUAL</h1>
     <h4 align="center" id="titleUnder">By Wahoozle Studios | CEO Zac Moon</h4>
-    <a href="#" class="button">Click Me</a>
 </body>
 </html>
+
