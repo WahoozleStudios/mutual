@@ -18,14 +18,37 @@
             top: 0;
             left: 0;
             z-index: -1;
+            width: 100%;
+            height: 100%;
         }
         #titleUnder {
             font-size: 25px;
             color: #fff;
         }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .button-container button {
+            margin: 10px;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .button-container button:hover {
+            background-color: #45a049;
+        }
     </style>
     <script>
-    
         document.addEventListener("DOMContentLoaded", () => {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
@@ -83,10 +106,9 @@
 <body>
     <h1 align="center" id="mutualTitle">MUTUAL</h1>
     <h4 align="center" id="titleUnder">By Wahoozle Studios | CEO Zac Moon</h4>
-    <div align="center">
+    <div class="button-container">
         <button>LOGIN</button>
         <button>SIGN UP</button>
     </div>
 </body>
 </html>
-
